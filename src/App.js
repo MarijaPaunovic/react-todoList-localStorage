@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import List from './components/List.js';
 import Alert from './components/Alert.js';
 import Navbar from './components/Navbar.js';
+import { v4 as uuidv4 } from 'uuid';
 
 const getLocalStorage = () => {
   let list = localStorage.getItem("list");
@@ -21,7 +22,7 @@ const App = () => {
   const [alert, setAlert] = useState({ show: false, msg: "", type: "" });
 
   useEffect(() => {
-    localStorage.setItem("list", JSON.stringify(list))
+    localStorage.setItem("list", JSON.stringify(list));
   }, [list]);
 
   const handleSubmit = e => {
@@ -44,7 +45,7 @@ const App = () => {
       showAlert(true, "success", "Value Changes");
     } else {
       showAlert(true, "success", "Item Added to the List");
-      const newItem = { id: new Date().getTime().toString(), title: name };
+      const newItem = { id: uuidv4(), title: name };
       setList([...list, newItem]);
       setName("");
     }
